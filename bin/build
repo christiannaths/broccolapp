@@ -1,0 +1,17 @@
+#!/bin/bash
+
+if [[ $* == *--production* ]]; then production=true; fi
+
+PROJECT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd ../ && pwd )"
+
+echo "Building $PROJECT_DIR"
+
+if [[ $production == true ]]
+then
+  echo " for production"
+  rm -rf dist/
+  BROCCOLI_ENV=production broccoli build dist
+else
+  rm -rf dist/
+  BROCCOLI_ENV=development broccoli build dist
+fi

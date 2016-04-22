@@ -1,0 +1,15 @@
+{
+  "name": "broccolapp",
+  "version": "0.0.0",
+  "description": "Build static websites with Broccoli",
+  "main": "Brocfile.js",
+  "repository": "https://github.com/christiannaths/broccolapp",
+  "scripts": {
+    "start": "./bin/serve",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Christian Naths",
+  "private": true,
+  "devDependencies": {
+  }
+}
