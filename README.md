@@ -1,16 +1,14 @@
 ![](http://christiannaths.com/share/broccoli.jpg)
 
-# Broccolapp
+# Broccoreactapp
 
-Build static websites with [Broccoli](https://github.com/broccolijs/broccoli)
+Build React websites with [Broccoli](https://github.com/broccolijs/broccoli)
 
 ## Install
 
 1. Clone this repo `git clone git@github.com:christiannaths/broccolapp.git`
-- Install Broccoli CLI `npm install -g broccoli-cli`
-- Install local Broccoli `npm install --save-dev broccoli-cli`
-- Install necessary broccoli plugins with `--save-dev` flag (see Brocfile.example.js for an example)
-- Find more plugins here https://www.npmjs.com/browse/keyword/broccoli-plugin
+- `git checkout react`
+- Install dependencies `npm install`
 
 ## Use
 
@@ -18,7 +16,7 @@ Build static websites with [Broccoli](https://github.com/broccolijs/broccoli)
 - visit `localhost:4200`
 - Work!
 
-## Deploy
+## Build
 
 1. A for development `bin/build`
 1. A for production `bin/build --production`
