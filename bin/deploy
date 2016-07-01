@@ -1,4 +1,38 @@
 #!/bin/bash
+if [[ $* == *--production* ]]; then production=true; fi
 
-./build --production
+# Setup
+TIMESTAMP=$(date +%s)
+GIT_SHA=$(git rev-parse --short HEAD)
+
+DEPLOY_ID="$TIMESTAMP-$GIT_SHA"
+PROJECT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd ../ && pwd )"
+DEPLOY_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd ../dist && pwd )"
+
+
+# Kickoff
+echo -e "Deploying $DEPLOY_DIR"
+
+if [[ $production == true ]]
+then
+  # echo -e "$DEPLOY_ID to production (yardly.ca)"
+
+  # REMOTE_LOGIN=deployer@new.yardly.ca
+  # REMOTE_PATH=/home/deployer/apps/yardly-ca
+
+  # # Build website dist
+  # $PROJECT_DIR/bin/build --production
+  # rm -f $DEPLOY_DIR/robots.txt
+
+  # # Deploy website
+  # ssh $REMOTE_LOGIN "mkdir -pv $REMOTE_PATH/{logs,tmp,releases/$DEPLOY_ID,shared,config,bin}"
+  # ssh $REMOTE_LOGIN "(cd $REMOTE_PATH/current && cp -vR ./ $REMOTE_PATH/releases/$DEPLOY_ID)"
+  # rsync -Pa --delete --exclude-from "$PROJECT_DIR/.rsyncignore" $DEPLOY_DIR/ $REMOTE_LOGIN:$REMOTE_PATH/releases/$DEPLOY_ID
+  # ssh $REMOTE_LOGIN "ln -sTfv $REMOTE_PATH/releases/$DEPLOY_ID $REMOTE_PATH/current"
+
+else
+  # $PROJECT_DIR/bin/build --production
+  # echo -e "Deploying to staging"
+  # surge $DEPLOY_DIR 'yardly.ca.surge.sh'
+fi
 

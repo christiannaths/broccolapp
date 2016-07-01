@@ -10,8 +10,8 @@ if [[ $production == true ]]
 then
   echo " for production"
   rm -rf dist/
-  BROCCOLI_ENV=production broccoli build dist
+  SASS_PATH=$PROJECT_DIR/src/components NODE_PATH=$(pwd) BROCCOLI_ENV=production TARGET=build broccoli build dist
 else
   rm -rf dist/
-  BROCCOLI_ENV=development broccoli build dist
+  SASS_PATH=$PROJECT_DIR/src/components NODE_PATH=$(pwd) BROCCOLI_ENV=development TARGET=build broccoli build dist
 fi

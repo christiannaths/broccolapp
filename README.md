@@ -1,22 +1,27 @@
-![](http://christiannaths.com/share/broccoli.jpg)
+# Broccoli Static Website Builder
 
-# Broccoreactapp
 
-Build React websites with [Broccoli](https://github.com/broccolijs/broccoli)
+## Stack
 
-## Install
+- [Broccoli](https://github.com/broccolijs/broccoli)
+- [Sass](http://sass-lang.com)
+- [Babel](https://babeljs.io)
+- [Handlebars](http://handlebarsjs.com)
+- [Webpack](https://webpack.github.io)
 
-1. Clone this repo `git clone git@github.com:christiannaths/broccolapp.git`
-- `git checkout react`
-- Install dependencies `npm install`
 
 ## Use
 
-1. `npm start`
-- visit `localhost:4200`
+1. `bin/serve`
+- visit `localhost:3000`
 - Work!
 
 ## Build
 
-1. A for development `bin/build`
-1. A for production `bin/build --production`
+- for development `bin/build`
+- for production `bin/build --production`
+
+## Deploy (coming soon)
+
+- to staging `bin/deploy`
+- to production `bin/deploy --production`

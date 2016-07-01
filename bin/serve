@@ -1,3 +1,10 @@
 #!/bin/bash
 
-broccoli serve
+if [[ $* == *--production* ]]; then production=true; fi
+
+if [[ $production == true ]]
+then
+  NODE_ENV=production BROCCOLI_ENV=production TARGET=browser broccoli serve
+else
+  NODE_ENV=development BROCCOLI_ENV=development TARGET=browser broccoli serve
+fi
