@@ -6,5 +6,5 @@ if [[ $production == true ]]
 then
   NODE_ENV=production BROCCOLI_ENV=production TARGET=browser broccoli serve
 else
-  NODE_ENV=development BROCCOLI_ENV=development TARGET=browser broccoli serve
+  SASS_PATH=$PROJECT_DIR/src/components NODE_PATH=$(pwd) BROCCOLI_ENV=development TARGET=browser broccoli serve
 fi

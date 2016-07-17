@@ -5,7 +5,7 @@
   "main": "Brocfile.js",
   "repository": "https://github.com/your-repo-name",
   "scripts": {
-    "start": "./bin/serve",
+    "start": "broccoli serve",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Your Name",
@@ -28,11 +28,12 @@
     "babel-plugin-module-alias": "^1.4.0",
     "babel-polyfill": "^6.9.1",
     "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.11.1",
     "broccoli": "^0.16.9",
     "broccoli-asset-rev": "^2.4.3",
     "broccoli-autoprefixer": "^4.1.0",
-    "broccoli-babel-transpiler": "git+https://github.com/christiannaths/broccoli-babel-transpiler.git",
     "broccoli-babel-plugin": "^0.3.0",
+    "broccoli-babel-transpiler": "git+https://github.com/christiannaths/broccoli-babel-transpiler.git",
     "broccoli-browser-sync": "^1.0.0",
     "broccoli-clean-css": "^1.1.0",
     "broccoli-concat": "^2.2.0",
@@ -42,12 +43,17 @@
     "broccoli-htmlmin": "^2.1.0",
     "broccoli-imagemin": "^0.2.1",
     "broccoli-merge-trees": "^1.1.1",
+    "broccoli-react-static": "file:///Users/christiannaths/Projects/Personal/13028-Static-Website-Generator/broccoli-react-static",
     "broccoli-sass": "^0.7.0",
     "broccoli-svgo": "^3.0.0",
     "broccoli-uglify-js": "^0.1.3",
     "broccoli-webpack": "^0.1.3",
     "handlebars": "^4.0.5",
     "handlebars-helpers": "^0.6.1",
-    "json-loader": "^0.5.4"
+    "json-loader": "^0.5.4",
+    "react": "^15.2.1",
+    "react-document-meta": "^2.0.3",
+    "react-dom": "^15.2.1",
+    "react-helmet": "^3.1.0"
   }
 }

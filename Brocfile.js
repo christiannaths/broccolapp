@@ -10,6 +10,8 @@ var webpack             = require('webpack');
 var hbsHelpers          = require('handlebars-helpers')();
 var hbsCore             = require('handlebars');
 var trees               = [];
+// var ReactDOMServer      = ReactDOMServer.renderToStaticMarkup
+// var ReactDOMServer      = require('react-dom/server');
 
 /**
   * --------------------------------------------------- Broccoli plugins
@@ -31,36 +33,71 @@ var ImageMin            = require('broccoli-imagemin');
 var AssetRev            = require('broccoli-asset-rev');
 var BrowserSync         = require('broccoli-browser-sync');
 
+var ReactStatic         = require('/Users/christiannaths/Projects/Personal/13028-Static-Website-Generator/broccoli-react-static');
 
 /**
   * --------------------------------------------------- Views
   */
-var htmlTree = 'src';
+// var htmlTree = 'src';
 
-htmlTree = Handlebars(htmlTree, ['*.hbs'], {
-  handlebars: hbsCore,
-  partials: 'src/components',
-  context: function(filename) {
-    if( !/page-with-data\.hbs/.test(filename) ) return;
-    return { data: require('./path/to/data.json') };
-  },
-  destFile: function (filename) {
-    if( filename === 'assets' ) return;
-    return filename.replace(/(.+)\.(hbs|handlebars)$/, '$1.html');
-  },
-  helpers: {
-    raw: function(string)  {
-      return new hbsCore.SafeString(string);
-    },
-    slug: function(string)  {
-      return hbsHelpers.dashcase(string)
-    }
-  }
-});
+// htmlTree = Handlebars(htmlTree, ['*.hbs'], {
+//   handlebars: hbsCore,
+//   partials: 'src/components',
+//   context: function(filename) {
+//     if( !/page-with-data\.hbs/.test(filename) ) return;
+//     return { data: require('./path/to/data.json') };
+//   },
+//   destFile: function (filename) {
+//     if( filename === 'assets' ) return;
+//     return filename.replace(/(.+)\.(hbs|handlebars)$/, '$1.html');
+//   },
+//   helpers: {
+//     raw: function(string)  {
+//       return new hbsCore.SafeString(string);
+//     },
+//     slug: function(string)  {
+//       return hbsHelpers.dashcase(string)
+//     }
+//   }
+// });
 
-htmlTree = MinifyHTML(htmlTree);
-trees.push(htmlTree);
+// ReactDOMServer.renderToStaticMarkup
 
+
+// htmlTree = MinifyHTML(htmlTree);
+// trees.push(htmlTree);
+
+
+/**
+  * --------------------------------------------------- Components
+  */
+var componentTree = 'src/components';
+
+// componentTree = Babel(componentTree, {
+//   browserPolyfill: true,
+//   "presets": ["es2015", "react"],
+//   "plugins": [
+//     ["module-alias", [
+//       { "src": path.resolve("src"), "expose": "^" }
+//     ]]
+//   ],
+//   "ignore": [
+//     "vendor/",
+//   ]
+// });
+
+// componentTree = Funnel(componentTree, {
+//   include: ['*.js'],
+//   destDir: '/'
+// });
+
+// stylesTree = Sass([stylesTree], 'style.sass', 'assets/style.css', sassConfig)
+componentTree = ReactStatic(componentTree, {
+  inputFile: 'landing-page.jsx',
+  outputFile: 'index.html',
+})
+
+trees.push(componentTree)
 
 /**
   * --------------------------------------------------- Styles
@@ -91,7 +128,6 @@ trees.push(stylesTree);
 
 /**
   * --------------------------------------------------- Images
-  */
 var imagesTree = 'src/images';
 
 imagesTree = Funnel(imagesTree, {
@@ -111,6 +147,7 @@ if( BROCCOLI_ENV == 'production' ) {
 }
 
 trees.push(imagesTree);
+  */
 
 
 /**
@@ -134,14 +171,15 @@ var jsTree = 'src';
 jsTree = Babel(jsTree, {
   browserPolyfill: true,
 
-  "presets": ["es2015"],
-  "plugins": [
-    ["module-alias", [
-      { "src": path.resolve("components"), "expose": "^" }
-    ]]
-  ],
-  "ignore": [
-    "vendor/",
+  // "presets": ["es2015", "react"],
+  presets: ['es2015'],
+  // "plugins": [
+  //   ["module-alias", [
+  //     { "src": path.resolve("src"), "expose": "^" }
+  //   ]]
+  // ],
+  ignore: [
+    'vendor/',
   ]
 
 
@@ -187,18 +225,18 @@ trees.push(publicTree);
 /**
   * --------------------------------------------------- AssetRev
   */
-var assetRevOptions = {
-  extensions: ['js', 'css', 'png', 'jpg', 'gif', 'svg'],
-  replaceExtensions: ['html', 'js', 'css'],
-  prepend: '/'
-}
-
 if( BROCCOLI_ENV === 'production' ) {
+  var assetRevOptions = {
+    extensions: ['js', 'css', 'png', 'jpg', 'gif', 'svg'],
+    replaceExtensions: ['html', 'js', 'css'],
+    prepend: '/'
+  }
+
   trees = new AssetRev(MergeTrees(trees, { overwrite: true }), assetRevOptions);
   trees = [trees];
 }
 
-
+// console.log(trees)
 //
 //--------------------------------------------------- Let's go!
 if( TARGET == 'browser' ) {
@@ -208,6 +246,8 @@ if( TARGET == 'browser' ) {
   var browserSyncTrees = trees.slice(0);
   var browserSync = new BrowserSync(browserSyncTrees, browserSyncOptions);
   trees.push(browserSync)
+
+  console.log(trees)
 }
 
 module.exports = MergeTrees(trees, { overwrite: true });
